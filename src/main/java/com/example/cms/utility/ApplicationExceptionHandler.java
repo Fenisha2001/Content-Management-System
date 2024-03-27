@@ -15,13 +15,14 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.example.cms.exception.UserAlreadyExistByEmailException;
+import com.example.cms.exception.UserNotFoundByIdException;
 
 @RestControllerAdvice
 //@AllArgsConstructor
 public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler{
-	
-private ErrorStructure<String> structure;
-	
+
+	private ErrorStructure<String> structure;
+
 
 	public ApplicationExceptionHandler(ErrorStructure<String> structureList) {
 		super();
@@ -37,7 +38,7 @@ private ErrorStructure<String> structure;
 	private ResponseEntity<ErrorStructure<String>> errorStructure(HttpStatus status, String errorMessage,
 			String rootCause) {
 
-			return new ResponseEntity<ErrorStructure<String>>(structure.setStatus(status.value())
+		return new ResponseEntity<ErrorStructure<String>>(structure.setStatus(status.value())
 				.setErrorMessage(errorMessage)
 				.setRootCause(rootCause),HttpStatus.BAD_REQUEST);
 	}
@@ -45,17 +46,23 @@ private ErrorStructure<String> structure;
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-			Map<String, String> messages=new HashMap<>();
-			ex.getAllErrors().forEach(error->{
+		Map<String, String> messages=new HashMap<>();
+		ex.getAllErrors().forEach(error->{
 
 			messages.put(((FieldError)error).getField(),error.getDefaultMessage());
-			});
-			return ResponseEntity.badRequest().body(structure.setStatus(HttpStatus.BAD_REQUEST.value())
+		});
+		return ResponseEntity.badRequest().body(structure.setStatus(HttpStatus.BAD_REQUEST.value())
 				.setErrorMessage("Invalid inputs")
 				.setRootCause(messages));
-	}
+	} 
+
+     @ExceptionHandler(UserNotFoundByIdException.class)
+     public ResponseEntity<ErrorStructure<String>> handleUserNotFoundByIdException(UserNotFoundByIdException ex){
+		
+    	 return errorStructure(HttpStatus.BAD_REQUEST, ex.getMessage(), "User is not found by given Id");
+
+     }
 }
- 
 //	private ErrorStructure<String> structure;
 //
 //	private ResponseEntity<ErrorStructure<String>> errorResponse(HttpStatus status,String message,String rootCause)
@@ -75,7 +82,7 @@ private ErrorStructure<String> structure;
 //		super();
 //		this.structureList = structureList;
 //	}
-	
+
 //	@ExceptionHandler()
 //	public ResponseEntity<ErrorStructure<String>> handleUserAlreadyExistByEmail(UserAlreadyExistByEmailException ex)
 //	{
@@ -96,5 +103,5 @@ private ErrorStructure<String> structure;
 //		return ResponseEntity.badRequest().body(structureList.setErrorStatus(HttpStatus.BAD_REQUEST.value())
 //				.setErrorMessage("Invalid inputs")
 //				.setRootCause(messages));
-	
+
 
