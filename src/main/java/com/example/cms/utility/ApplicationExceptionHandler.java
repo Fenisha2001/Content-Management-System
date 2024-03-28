@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.example.cms.exception.BlogAlreadyExistsByTitleException;
 import com.example.cms.exception.UserAlreadyExistByEmailException;
 import com.example.cms.exception.UserNotFoundByIdException;
 
@@ -56,52 +57,19 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler{
 				.setRootCause(messages));
 	} 
 
-     @ExceptionHandler(UserNotFoundByIdException.class)
-     public ResponseEntity<ErrorStructure<String>> handleUserNotFoundByIdException(UserNotFoundByIdException ex){
-		
-    	 return errorStructure(HttpStatus.BAD_REQUEST, ex.getMessage(), "User is not found by given Id");
+	@ExceptionHandler(UserNotFoundByIdException.class)
+	public ResponseEntity<ErrorStructure<String>> handleUserNotFoundByIdException(UserNotFoundByIdException ex){
 
-     }
+		return errorStructure(HttpStatus.BAD_REQUEST, ex.getMessage(), "User is not found by given Id");
+
+	}
+
+	@ExceptionHandler(BlogAlreadyExistsByTitleException.class)
+	public ResponseEntity<ErrorStructure<String>> handleBlogAlreadyExistsByTitleException(BlogAlreadyExistsByTitleException ex){
+		return errorStructure(HttpStatus.BAD_REQUEST, ex.getMessage(), "Blog already exists with the given title");
+
+	}
 }
-//	private ErrorStructure<String> structure;
-//
-//	private ResponseEntity<ErrorStructure<String>> errorResponse(HttpStatus status,String message,String rootCause)
-//	{
-//		return new ResponseEntity<ErrorStructure<String>>(structure.setErrorStatus(status.value())
-//				.setErrorMessage(message)
-//				.setRootCause(rootCause),status);
-//	}
-//	
-//	@ExceptionHandler(UserAlreadyExistByEmailException.class)
-//	public ResponseEntity<ErrorStructure<String>> handlerUserAlreadyExistByEmail(UserAlreadyExistByEmailException ex)
-//	{
-//		return errorResponse(HttpStatus.BAD_REQUEST,ex.getMessage(),"User already exists with the given email Id");
-//	}
 
-//	public ApplicationExceptionHandler(ErrorStructure<Object> structureList) {
-//		super();
-//		this.structureList = structureList;
-//	}
-
-//	@ExceptionHandler()
-//	public ResponseEntity<ErrorStructure<String>> handleUserAlreadyExistByEmail(UserAlreadyExistByEmailException ex)
-//	{
-//		return errorResponse(HttpStatus.BAD_REQUEST, ex.getMessage(), "User Already exists with the given email ID");
-//		return ResponseEntity.badRequest().body(structureList.setErrorStatus(HttpStatus.BAD_REQUEST.value())
-//				.setErrorMessage(ex.getMessage())
-//				.setRootCause("Email id already exists"));
-//	}
-
-//	@Override
-//	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-//			HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-//		Map<String, String> messages=new HashMap<>();
-//		ex.getAllErrors().forEach(error->{
-//
-//			messages.put(((FieldError)error).getField(),error.getDefaultMessage());
-//		});
-//		return ResponseEntity.badRequest().body(structureList.setErrorStatus(HttpStatus.BAD_REQUEST.value())
-//				.setErrorMessage("Invalid inputs")
-//				.setRootCause(messages));
 
 
