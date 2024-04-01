@@ -16,11 +16,11 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "blogs")
-@Getter
-@Setter
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
+//@Getter
+//@Setter
+//@Builder
+//@AllArgsConstructor
+//@NoArgsConstructor
 public class Blog {
 	
 	@Id
@@ -32,5 +32,47 @@ public class Blog {
 	
 	@ManyToMany
 	private List<User> users;
+
+	public int getBlogId() {
+		return blogId;
+	}
+
+	public void setBlogId(int blogId) {
+		this.blogId = blogId;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String[] getTopics() {
+		return topics;
+	}
+
+	public void setTopics(String[] topics) {
+		this.topics = topics;
+	}
+
+	public String getAbout() {
+		return about;
+	}
+
+	public void setAbout(String about) {
+		this.about = about;
+	}
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+	
+	
 
 }

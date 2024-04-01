@@ -10,11 +10,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Setter
-@Getter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+//@Setter
+//@Getter
+//@Builder
+//@NoArgsConstructor
+//@AllArgsConstructor
 @Component
 public class BlogResponse {
 	
@@ -22,5 +22,29 @@ public class BlogResponse {
 	private String title;
 	private String[] topics;
 	private String about;
+	public int getBlogId() {
+		return blogId;
+	}
+	public void setBlogId(int blogId) {
+		this.blogId = blogId;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String[] getTopics() {
+		return topics;
+	}
+	public void setTopics(String[] topics) {
+		this.topics = topics;
+	}
+	public String getAbout() {
+		return about;
+	}
+	public void setAbout(String about) {
+		this.about = about;
+	}
 
 }
