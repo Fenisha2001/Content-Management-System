@@ -23,7 +23,7 @@ public class ContributionPanel {
 	private int panelId;
 	
 	@ManyToMany
-	private List<User> contributers=new ArrayList<>();
+	private List<User> contributors=new ArrayList<>();
 	
 	public int getPanelId() {
 		return panelId;
@@ -31,11 +31,11 @@ public class ContributionPanel {
 	public void setPanelId(int panelId) {
 		this.panelId = panelId;
 	}
-	public List<User> getContributers() {
-		return contributers;
+	public List<User> getContributors() {
+		return contributors;
 	}
-	public void setContributers(List<User> contributers) {
-		this.contributers = contributers;
+	public void setContributers(List<User> contributors) {
+		this.contributors = contributors;
 	}
 
 

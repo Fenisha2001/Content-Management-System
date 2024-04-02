@@ -15,6 +15,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.example.cms.exception.BlogAlreadyExistsByTitleException;
+import com.example.cms.exception.IllegalAccessRequestException;
 import com.example.cms.exception.UserAlreadyExistByEmailException;
 import com.example.cms.exception.UserNotFoundByIdException;
 
@@ -66,6 +67,12 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler{
 
 	@ExceptionHandler(BlogAlreadyExistsByTitleException.class)
 	public ResponseEntity<ErrorStructure<String>> handleBlogAlreadyExistsByTitleException(BlogAlreadyExistsByTitleException ex){
+		return errorStructure(HttpStatus.BAD_REQUEST, ex.getMessage(), "Blog already exists with the given title");
+
+	}
+	
+	@ExceptionHandler(IllegalAccessRequestException.class)
+	public ResponseEntity<ErrorStructure<String>> handleIllegalAccessRequestException(IllegalAccessRequestException ex){
 		return errorStructure(HttpStatus.BAD_REQUEST, ex.getMessage(), "Blog already exists with the given title");
 
 	}

@@ -30,9 +30,9 @@ public class BlogPost {
 	
 	@Enumerated(EnumType.STRING)
 	private PostType postType;
-	private String seoTitle;
-	private String seoDescription;
-	private String[] seoTopics;
+//	private String seoTitle;
+//	private String seoDescription;
+//	private String[] seoTopics;
 	
 	@CreatedDate
 	@Column(updatable = false)
@@ -87,29 +87,29 @@ public class BlogPost {
 		this.postType = postType;
 	}
 
-	public String getSeoTitle() {
-		return seoTitle;
-	}
-
-	public void setSeoTitle(String seoTitle) {
-		this.seoTitle = seoTitle;
-	}
-
-	public String getSeoDescription() {
-		return seoDescription;
-	}
-
-	public void setSeoDescription(String seoDescription) {
-		this.seoDescription = seoDescription;
-	}
-
-	public String[] getSeoTopics() {
-		return seoTopics;
-	}
-
-	public void setSeoTopics(String[] seoTopics) {
-		this.seoTopics = seoTopics;
-	}
+//	public String getSeoTitle() {
+//		return seoTitle;
+//	}
+//
+//	public void setSeoTitle(String seoTitle) {
+//		this.seoTitle = seoTitle;
+//	}
+//
+//	public String getSeoDescription() {
+//		return seoDescription;
+//	}
+//
+//	public void setSeoDescription(String seoDescription) {
+//		this.seoDescription = seoDescription;
+//	}
+//
+//	public String[] getSeoTopics() {
+//		return seoTopics;
+//	}
+//
+//	public void setSeoTopics(String[] seoTopics) {
+//		this.seoTopics = seoTopics;
+//	}
 
 	public LocalDateTime getCreatedAt() {
 		return createdAt;

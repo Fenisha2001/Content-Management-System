@@ -23,9 +23,9 @@ public class BlogPostResponse {
 	private String subtitle;
 	
 	private PostType postType;
-	private String seoTitle;
-	private String seoDescription;
-	private String[] seoTopics;
+//	private String seoTitle;
+//	private String seoDescription;
+//	private String[] seoTopics;
 	
 	private LocalDateTime createdAt;
 	private LocalDateTime lastModifiedAt;
