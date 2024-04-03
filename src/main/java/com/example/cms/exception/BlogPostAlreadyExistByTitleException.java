@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class TopicNotSpecifiedException extends RuntimeException{
+public class BlogPostAlreadyExistByTitleException extends RuntimeException {
 	
 	private String message;
 

@@ -1,7 +1,5 @@
 package com.example.cms.serviceimpl;
 
-import java.util.Arrays;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,7 +12,7 @@ import com.example.cms.exception.BlogAlreadyExistsByTitleException;
 import com.example.cms.exception.BlogNotFoundByIdException;
 import com.example.cms.exception.IllegalAccessRequestException;
 import com.example.cms.exception.PanelNotFoundByIdException;
-import com.example.cms.exception.TopicNotSpecifiedException;
+import com.example.cms.exception.TopicsNotSpecifiedException;
 import com.example.cms.exception.UserNotFoundByIdException;
 import com.example.cms.repository.BlogRepo;
 import com.example.cms.repository.ContributionPanelRepository;
@@ -44,7 +42,7 @@ public class BlogServiceImpl implements BlogService {
 			if(blogRepository.existsByTitle(blogRequest.getTitle()))
 				throw new BlogAlreadyExistsByTitleException("Failed to create a blog");
 			if(blogRequest.getTopics().length<1)
-				throw new TopicNotSpecifiedException("Failed to create a blog");
+				throw new TopicsNotSpecifiedException("Failed to create a blog");
 		Blog blog = mapToBlogEntity(blogRequest, new Blog());
 				blog.setUser(user);
 				blog = blogRepository.save(blog);
@@ -107,7 +105,7 @@ public class BlogServiceImpl implements BlogService {
 				if(!blogRepository.existsByUserAndContributionPanel(owner,panel))
 					throw new IllegalAccessRequestException("Failed to add contributor");
 				return userRepository.findById(userId).map(contributor->{
-					panel.getContributers().add(contributor);
+					panel.getContributors().add(contributor);
 					contributionPanelRepo.save(panel);
 					return ResponseEntity.ok(panelStructure.setStatus(HttpStatus.OK.value())
 							.setMessage("contributor added successfully")
@@ -125,7 +123,7 @@ public class BlogServiceImpl implements BlogService {
 				if(!blogRepository.existsByUserAndContributionPanel(owner,panel))
 					throw new IllegalAccessRequestException("Failed to delete user");
 			return userRepository.findById(userId).map(user->{
-					panel.getContributers().remove(user);
+					panel.getContributors().remove(user);
 					contributionPanelRepo.save(panel);
 					return ResponseEntity.ok(userResponseStructure.setStatus(HttpStatus.OK.value())
 							.setMessage("user deleted successfully")
