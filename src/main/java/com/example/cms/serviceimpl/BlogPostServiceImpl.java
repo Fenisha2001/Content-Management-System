@@ -78,13 +78,13 @@ public BlogPostServiceImpl(BlogPostRepo blogPostRepo, BlogRepo blogRepo,
 	private BlogPostResponse mapToBlogPostResponse(BlogPost blogPost) {
 		BlogPostResponse blogPostResponse = new BlogPostResponse();
 		blogPostResponse.setPostId(blogPost.getPostId());
-		blogPostResponse.setPostType(blogPost.getPostType());
+//		blogPostResponse.setPostType(blogPost.getPostType());
 		blogPostResponse.setTitle(blogPost.getTitle());
 		blogPostResponse.setSubtitle(blogPost.getSubTitle());
-		blogPostResponse.setCreatedAt(blogPost.getCreatedAt());
-		blogPostResponse.setLastModifiedAt(blogPost.getLastModifiedAt());
-		blogPostResponse.setCreatedBy(blogPost.getCreatedBy());
-		blogPostResponse.setLastModifiedBy(blogPost.getLastModifiedBy());
+//		blogPostResponse.setCreatedAt(blogPost.getCreatedAt());
+//		blogPostResponse.setLastModifiedAt(blogPost.getLastModifiedAt());
+//		blogPostResponse.setCreatedBy(blogPost.getCreatedBy());
+//		blogPostResponse.setLastModifiedBy(blogPost.getLastModifiedBy());
 		
 		return blogPostResponse;
 	}

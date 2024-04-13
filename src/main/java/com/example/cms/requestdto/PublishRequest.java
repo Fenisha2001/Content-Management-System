@@ -13,6 +13,14 @@ public class PublishRequest {
 	private String seoTitle;
 	 private String seoDescription;
 	 private String[] seoTopics;
+	 private ScheduleRequest schedule;
+	 
+	public ScheduleRequest getSchedule() {
+		return schedule;
+	}
+	public void setSchedule(ScheduleRequest schedule) {
+		this.schedule = schedule;
+	}
 	public String getSeoTitle() {
 		return seoTitle;
 	}

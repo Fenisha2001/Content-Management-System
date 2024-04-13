@@ -17,6 +17,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class BlogPost {
@@ -46,6 +47,17 @@ public class BlogPost {
 	
 	@ManyToOne
 	private Blog blog;
+	
+	@OneToOne
+	private Publish publish;
+
+	public Publish getPublish() {
+		return publish;
+	}
+
+	public void setPublish(Publish publish) {
+		this.publish = publish;
+	}
 
 	public int getPostId() {
 		return postId;

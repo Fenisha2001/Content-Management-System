@@ -10,23 +10,7 @@ public class PublishResponse {
 	private String seoTitle;
 	private String seoDescription;
 	private String[] seoTopics;
-	private BlogPost blogPost;
 
-	private LocalDateTime createdAt;
-	private String createdBy;
-
-	public LocalDateTime getCreatedAt() {
-		return createdAt;
-	}
-	public void setCreatedAt(LocalDateTime createdAt) {
-		this.createdAt = createdAt;
-	}
-	public String getCreatedBy() {
-		return createdBy;
-	}
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
 	public int getPublishId() {
 		return publishId;
 	}
@@ -51,12 +35,12 @@ public class PublishResponse {
 	public void setSeoTopics(String[] seoTopics) {
 		this.seoTopics = seoTopics;
 	}
-	public BlogPost getBlogPost() {
-		return blogPost;
-	}
-	public void setBlogPost(BlogPost blogPost) {
-		this.blogPost = blogPost;
-	}
+//	public BlogPost getBlogPost() {
+//		return blogPost;
+//	}
+//	public void setBlogPost(BlogPost blogPost) {
+//		this.blogPost = blogPost;
+//	}
 
 
 }

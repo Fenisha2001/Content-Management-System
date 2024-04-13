@@ -31,7 +31,7 @@ private BlogPostService blogPostService;
 		return blogPostService.createDraft(blogId, blogPostRequest);
 	}
 	
-	@PutMapping("/blog-posts/{postId}")
+	@PutMapping("/blogs/blog-posts/{postId}")
 	public ResponseEntity<ResponseStructure<BlogPostResponse>> updateBlogPost(@PathVariable int postId,@RequestBody BlogPostRequest blogPostRequest)
 	{
 	 return	blogPostService.updateDraft(postId,blogPostRequest);

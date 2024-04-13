@@ -34,6 +34,15 @@ public class Publish {
 	@OneToOne
 	private BlogPost blogPost; 
 	
+	@OneToOne
+	private Schedule schedule;
+	
+	public Schedule getSchedule() {
+		return schedule;
+	}
+	public void setSchedule(Schedule schedule) {
+		this.schedule = schedule;
+	}
 	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
@@ -46,8 +55,7 @@ public class Publish {
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
-	
-	
+		
 	public BlogPost getBlogPost() {
 		return blogPost;
 	}

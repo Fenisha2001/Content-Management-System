@@ -21,17 +21,20 @@ public class BlogPostResponse {
 	private int postId;
 	private String title;
 	private String subtitle;
+	private String summary;
 	
-	private PostType postType;
+	private PublishResponse publishResponse;
+	
+//	private PostType postType;
 //	private String seoTitle;
 //	private String seoDescription;
 //	private String[] seoTopics;
 	
-	private LocalDateTime createdAt;
-	private LocalDateTime lastModifiedAt;
-	private String createdBy;
-	private String lastModifiedBy;
+//	private LocalDateTime createdAt;
+//	private LocalDateTime lastModifiedAt;
+//	private String createdBy;
+//	private String lastModifiedBy;
 	
-	private Blog blog;
+	private BlogResponse blogResponse;
 
 }
