@@ -24,6 +24,9 @@ public class UserResponse {
 	private LocalDateTime createdAt;
 	private LocalDateTime lastModifiedAt;
 	private boolean deleted;
+	public boolean isDeleted() {
+		return deleted;
+	}
 	
 //	public int getUserId() {
 //		return userId;
