@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.cms.entity.User;
 import com.example.cms.exception.UserAlreadyExistByEmailException;
+import com.example.cms.exception.UserNotFoundByIdException;
 import com.example.cms.repository.UserRepository;
 import com.example.cms.requestdto.LoginRequest;
 import com.example.cms.requestdto.UserRequest;
@@ -15,12 +16,11 @@ import com.example.cms.service.UserService;
 import com.example.cms.utility.ResponseStructure;
 
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
 
 @Service
 //@AllArgsConstructor
 public class UserServiceImpl implements UserService{
-	
+
 	private UserRepository userRepository;
 	private ResponseStructure<UserResponse> structure;
 	private PasswordEncoder passwordEncoder;
@@ -39,37 +39,39 @@ public class UserServiceImpl implements UserService{
 			throw new UserAlreadyExistByEmailException("Failed to register User");
 
 		User uniqueUser=userRepository.save(mapToUserEntity(userRequest, new User()));
-		
+
 		return ResponseEntity.ok(structure.setStatus(HttpStatus.OK.value()).setMessage("User registered successfully")
 				.setData(mapToUserResponse(uniqueUser)));
 	}
-	
+
 	private UserResponse mapToUserResponse(User user) {
-	    UserResponse userResponse = new UserResponse();
-	    userResponse.setUserId(user.getUserId());
-	    userResponse.setUsername(user.getUsername());
-	    userResponse.setEmail(user.getEmail());
-	     userResponse.setCreatedAt(user.getCreatedAt());
-	     userResponse.setLastModifiedAt(user.getLastModifiedAt());
-	    return userResponse;
+		UserResponse userResponse = new UserResponse();
+		userResponse.setUserId(user.getUserId());
+		userResponse.setUsername(user.getUsername());
+		userResponse.setEmail(user.getEmail());
+		userResponse.setCreatedAt(user.getCreatedAt());
+		userResponse.setLastModifiedAt(user.getLastModifiedAt());
+		userResponse.setDeleted(user.isDeleted());
+		return userResponse;
 	}
 
 
-//	private UserResponse mapToUserResponse(User user) {
-////		return UserResponse.builder()
-//				.userId(user.getUserId())
-//				.username(user.getUsername())
-//				.email(user.getEmail())
-////				.createAt(user.getCreatedAt())
-////				.lastModifiedAt(user.getLastModifiedAt())
-////				.build();
-//	}
+	//	private UserResponse mapToUserResponse(User user) {
+	////		return UserResponse.builder()
+	//				.userId(user.getUserId())
+	//				.username(user.getUsername())
+	//				.email(user.getEmail())
+	////				.createAt(user.getCreatedAt())
+	////				.lastModifiedAt(user.getLastModifiedAt())
+	////				.build();
+	//	}
 
 	private User mapToUserEntity(UserRequest userRequest, User user) {
 		user.setEmail(userRequest.getEmail());
 		user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
-//		user.setPassword(userRequest.getPassword());
+		//		user.setPassword(userRequest.getPassword());
 		user.setUsername(userRequest.getUsername());
+		user.setDeleted(false);
 		return user;
 	}
 
@@ -78,6 +80,26 @@ public class UserServiceImpl implements UserService{
 		// TODO Auto-generated method stub
 		return null;
 	}
-		
+
+	@Override
+	public ResponseEntity<ResponseStructure<UserResponse>> deleteUser(int userId) {
+		return userRepository.findById(userId)
+				.map(user->{
+					user.setDeleted(true);
+					user=userRepository.save(user);	
+					return ResponseEntity.ok(structure.setStatus(HttpStatus.OK.value())
+							.setMessage("User deleted")
+							.setData(mapToUserResponse(user)));
+				}).orElseThrow(()-> new UserNotFoundByIdException("Invalid userId"));
+	}
+
+	@Override
+	public ResponseEntity<ResponseStructure<UserResponse>> findUniqueUser(int userId) {
+		return userRepository.findById(userId)
+				.map(user->ResponseEntity.ok(structure.setStatus(HttpStatus.OK.value())
+						.setMessage("User found successfully")
+						.setData(mapToUserResponse(user)))
+	).orElseThrow(()-> new UserNotFoundByIdException("Invalid userId"));
+	}
 
 }

@@ -18,4 +18,8 @@ public interface UserService {
 
 	ResponseEntity<ResponseStructure<UserResponse>> loginUser(@Valid LoginRequest loginRequest);
 
+	ResponseEntity<ResponseStructure<UserResponse>> deleteUser(int userId);
+
+	ResponseEntity<ResponseStructure<UserResponse>> findUniqueUser(int userId);
+
 }
